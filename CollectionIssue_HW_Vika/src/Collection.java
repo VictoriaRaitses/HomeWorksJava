@@ -17,7 +17,7 @@ public class Collection {
         List<String> comparedList = new ArrayList<>();
         if (first.size() == second.size()) {
             for (int i = 0; i < first.size(); i++) {
-                if (first.get(i).equals(second.get(i))) {
+                if (first.get(i) == (second.get(i))) {
                     comparedList.add("yes");
                 } else comparedList.add("no");
             }
