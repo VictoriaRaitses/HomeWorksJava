@@ -16,8 +16,10 @@ public class MyStack implements Stack {
 
     @Override
     public void addElement(int element) {
-        if (size == 0 || maxEltStack.getLast() <= element) {
+        if (size == 0 || maxEltStack.getLast() < element) {
             maxEltStack.addLast(element);
+        } else {
+            maxEltStack.addLast(maxEltStack.getLast());
         }
         stackArray.addLast(element);
         size++;

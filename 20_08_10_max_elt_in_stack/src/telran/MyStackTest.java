@@ -80,6 +80,26 @@ class OurStackTest {
     }
 
     @Test
+    public void testGetMaxValue_add2RepeatingElements_100() {
+        stack.addElement(98);
+        stack.addElement(100);
+        stack.addElement(8);
+        stack.addElement(100);
+        stack.addElement(10);
+        assertEquals(100, stack.getMaxValue());
+    }
+
+    @Test
+    public void testGetMaxValue_add3RepeatingElements_101() {
+        stack.addElement(101);
+        stack.addElement(101);
+        stack.addElement(98);
+        stack.addElement(101);
+        stack.addElement(98);
+        assertEquals(101, stack.getMaxValue());
+    }
+
+    @Test
     public void testAddRemoveMix_severalElementsAdded_removeSeveralElements() {
         stack.addElement(3);
         stack.addElement(8);
