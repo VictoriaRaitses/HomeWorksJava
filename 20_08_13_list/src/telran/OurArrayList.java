@@ -3,6 +3,7 @@ package telran;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * An implementation of the List data structure, made via array under the hood.
@@ -30,9 +31,7 @@ public class OurArrayList<T> implements OurList<T> {
             System.arraycopy(source, 0, newSource, 0, source.length);
             source = newSource;
         }
-
         source[size++] = elt;
-
     }
 
     @Override
@@ -89,28 +88,47 @@ public class OurArrayList<T> implements OurList<T> {
 
     @Override
     public void sort() {
-        Arrays.sort(source);
+        Arrays.sort((T[]) source, 0, size);
     }
 
     @Override
     public void sort(Comparator<T> comparator) {
 
+        Arrays.sort((T[]) source, 0, size, comparator);
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            int currentIndexNumber;
+            int currentNumber;
 
             @Override
             public boolean hasNext() {
-                return currentIndexNumber < size;
+                return currentNumber < size;
             }
 
             @Override
             public T next() {
-                return (T) source[currentIndexNumber++];
+                return (T) source[currentNumber++];
             }
         };
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OurArrayList)) return false;
+        OurArrayList<?> that = (OurArrayList<?>) o;
+        return size == that.size &&
+                DEFAULT_CAPACITY == that.DEFAULT_CAPACITY &&
+                Arrays.equals(source, that.source);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(size, DEFAULT_CAPACITY);
+        result = 31 * result + Arrays.hashCode(source);
+        return result;
+    }
+
 }
