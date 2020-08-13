@@ -17,7 +17,6 @@ public class Point2D implements Comparable<Point2D> {
         return y;
     }
 
-    // x1, y1  x2 y2
     public double vectorLength() {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 
@@ -31,4 +30,13 @@ public class Point2D implements Comparable<Point2D> {
             return -1;
         else return 1;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        Point2D otherPoint = (Point2D) other;
+
+        return this.x == otherPoint.x && this.y == otherPoint.y;
+    }
+
+
 }

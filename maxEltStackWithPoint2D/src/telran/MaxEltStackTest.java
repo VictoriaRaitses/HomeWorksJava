@@ -25,9 +25,9 @@ class MaxEltStackTest {
     void testGetMaxWithPoint2D_addZeroPoints_pointZeroZero() {
         Point2D expected = new Point2D(0, 0);
 
-        pointStack.addLast(expected);
-        pointStack.addLast(expected);
-        pointStack.addLast(expected);
+        pointStack.addLast(new Point2D(0, 0));
+        pointStack.addLast(new Point2D(0, 0));
+        pointStack.addLast(new Point2D(0, 0));
 
         assertEquals(expected, pointStack.getMax());
     }
@@ -39,7 +39,7 @@ class MaxEltStackTest {
         pointStack.addLast(new Point2D(4.7, 9.8));
         pointStack.addLast(new Point2D(1.2, 5.6));
         pointStack.addLast(new Point2D(3.67, 7.7));
-        pointStack.addLast(expected);
+        pointStack.addLast(new Point2D(0, 10.1));
 
         assertEquals(expected, pointStack.getLast());
     }
@@ -48,7 +48,7 @@ class MaxEltStackTest {
     public void testRemoveLastWithPoint2d_addOnePoint() {
         Point2D expected = new Point2D(4.7, 9.8);
 
-        pointStack.addLast(expected);
+        pointStack.addLast(new Point2D(4.7, 9.8));
 
         assertEquals(expected, pointStack.removeLast());
     }
@@ -65,9 +65,9 @@ class MaxEltStackTest {
     public void testGetMaxWithPoint2D_addSamePoints() {
         Point2D expected = new Point2D(4.7, 9.8);
 
-        pointStack.addLast(expected);
-        pointStack.addLast(expected);
-        pointStack.addLast(expected);
+        pointStack.addLast(new Point2D(4.7, 9.8));
+        pointStack.addLast(new Point2D(4.7, 9.8));
+        pointStack.addLast(new Point2D(4.7, 9.8));
 
         assertEquals(expected, pointStack.getMax());
     }
@@ -77,7 +77,7 @@ class MaxEltStackTest {
         Point2D expected = new Point2D(16.0, 15.99);
 
         pointStack.addLast(new Point2D(15.0, 14.99));
-        pointStack.addLast(expected);
+        pointStack.addLast(new Point2D(16.0, 15.99));
         pointStack.addLast(new Point2D(0.0, 0.0));
         pointStack.addLast(new Point2D(0.0, 0.1));
         pointStack.addLast(new Point2D(10.56, 9.8));
