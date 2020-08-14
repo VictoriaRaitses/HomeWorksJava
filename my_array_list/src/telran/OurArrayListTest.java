@@ -30,6 +30,29 @@ class OurArrayListTest {
     }
 
     @Test
+    public void testSize_add17elt_17() {
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+        ourArrayList.add(7);
+
+        assertEquals(17, ourArrayList.size);
+    }
+
+    @Test
     void testGetElt_emptyListException_IndexOutOfBoundsException() {
         assertThrows(IndexOutOfBoundsException.class, () -> ourArrayList.get(0));
     }
@@ -133,6 +156,53 @@ class OurArrayListTest {
         ourArrayList.add(99);
         ourArrayList.add(20);
         assertFalse(ourArrayList.remove((Integer) 100));
+    }
+
+    @Test
+    public void testDefaultSort_add16elt_7() {
+        ourArrayList.add(16);
+        ourArrayList.add(15);
+        ourArrayList.add(14);
+        ourArrayList.add(13);
+        ourArrayList.add(12);
+        ourArrayList.add(11);
+        ourArrayList.add(10);
+        ourArrayList.add(9);
+        ourArrayList.add(8);
+        ourArrayList.add(7);
+        ourArrayList.add(6);
+        ourArrayList.add(5);
+        ourArrayList.add(4);
+        ourArrayList.add(3);
+        ourArrayList.add(2);
+        ourArrayList.add(1);
+
+        ourArrayList.sort();
+        assertEquals(7, ourArrayList.get(6));
+    }
+
+    @Test
+    public void testSortWithAnotherComparator_add16elt_4() {
+        OurComparator comparator = new OurComparator();
+        ourArrayList.add(16);
+        ourArrayList.add(15);
+        ourArrayList.add(14);
+        ourArrayList.add(13);
+        ourArrayList.add(12);
+        ourArrayList.add(11);
+        ourArrayList.add(10);
+        ourArrayList.add(9);
+        ourArrayList.add(8);
+        ourArrayList.add(7);
+        ourArrayList.add(6);
+        ourArrayList.add(5);
+        ourArrayList.add(4);
+        ourArrayList.add(3);
+        ourArrayList.add(2);
+        ourArrayList.add(1);
+
+        ourArrayList.sort(comparator);
+        assertEquals(5, ourArrayList.get(4));
     }
 
     @Test
