@@ -31,25 +31,11 @@ class OurArrayListTest {
 
     @Test
     public void testSize_add17elt_17() {
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
-        ourArrayList.add(7);
+        for (int i = 0; i < 18; i++) {
+            ourArrayList.add(i);
+        }
 
-        assertEquals(17, ourArrayList.size);
+        assertEquals(18, ourArrayList.size);
     }
 
     @Test
@@ -160,22 +146,9 @@ class OurArrayListTest {
 
     @Test
     public void testDefaultSort_add16elt_7() {
-        ourArrayList.add(16);
-        ourArrayList.add(15);
-        ourArrayList.add(14);
-        ourArrayList.add(13);
-        ourArrayList.add(12);
-        ourArrayList.add(11);
-        ourArrayList.add(10);
-        ourArrayList.add(9);
-        ourArrayList.add(8);
-        ourArrayList.add(7);
-        ourArrayList.add(6);
-        ourArrayList.add(5);
-        ourArrayList.add(4);
-        ourArrayList.add(3);
-        ourArrayList.add(2);
-        ourArrayList.add(1);
+        for (int i = 17; i > 0; i--) {
+            ourArrayList.add(i);
+        }
 
         ourArrayList.sort();
         assertEquals(7, ourArrayList.get(6));
@@ -184,22 +157,9 @@ class OurArrayListTest {
     @Test
     public void testSortWithAnotherComparator_add16elt_4() {
         OurComparator comparator = new OurComparator();
-        ourArrayList.add(16);
-        ourArrayList.add(15);
-        ourArrayList.add(14);
-        ourArrayList.add(13);
-        ourArrayList.add(12);
-        ourArrayList.add(11);
-        ourArrayList.add(10);
-        ourArrayList.add(9);
-        ourArrayList.add(8);
-        ourArrayList.add(7);
-        ourArrayList.add(6);
-        ourArrayList.add(5);
-        ourArrayList.add(4);
-        ourArrayList.add(3);
-        ourArrayList.add(2);
-        ourArrayList.add(1);
+        for (int i = 17; i > 0; i--) {
+            ourArrayList.add(i);
+        }
 
         ourArrayList.sort(comparator);
         assertEquals(5, ourArrayList.get(4));

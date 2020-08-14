@@ -57,7 +57,7 @@ public class OurArrayList<T> implements OurList<T> {
     @Override
     public boolean contains(T elt) {
         for (int i = 0; i < size; i++) {
-            if (source[i] == elt)
+            if (source[i].equals(elt))
                 return true;
         }
         return false;
