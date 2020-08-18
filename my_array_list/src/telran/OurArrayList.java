@@ -114,21 +114,4 @@ public class OurArrayList<T> implements OurList<T> {
         };
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OurArrayList)) return false;
-        OurArrayList<?> that = (OurArrayList<?>) o;
-        return size == that.size &&
-                DEFAULT_CAPACITY == that.DEFAULT_CAPACITY &&
-                Arrays.equals(source, that.source);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(size, DEFAULT_CAPACITY);
-        result = 31 * result + Arrays.hashCode(source);
-        return result;
-    }
-
 }

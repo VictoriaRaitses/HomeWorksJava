@@ -62,7 +62,7 @@ class OurArrayListTest {
     }
 
     @Test
-    void testComtainsElt_add6Elt_true() {
+    void testContainsElt_add6Elt_true() {
         ourArrayList.add(10);
         ourArrayList.add(8);
         ourArrayList.add(9);
