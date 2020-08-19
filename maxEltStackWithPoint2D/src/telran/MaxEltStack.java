@@ -1,7 +1,6 @@
 package telran;
 
-import java.util.ArrayDeque;
-import java.util.Comparator;
+import java.util.*;
 
 public class MaxEltStack<T> {
 
@@ -47,6 +46,7 @@ public class MaxEltStack<T> {
         return lastElt;
     }
 
+
     public T getLast() {
         if (elements.size() == 0)
             throw new OurEmptyStackException();
@@ -59,6 +59,17 @@ public class MaxEltStack<T> {
             throw new OurEmptyStackException();
 
         return maxValues.getLast();
+    }
+
+
+    public List<T> sort(Comparator<T> comparator) {
+        Iterator i = elements.iterator();
+        List<T> sortList = new ArrayList();
+        while (i.hasNext()) {
+            sortList.add((T) i.next());
+        }
+        sortList.sort(comparator);
+        return sortList;
     }
 
     public int size() {

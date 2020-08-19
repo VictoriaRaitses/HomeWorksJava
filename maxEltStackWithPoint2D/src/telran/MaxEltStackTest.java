@@ -3,6 +3,7 @@ package telran;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -281,5 +282,26 @@ class MaxEltStackTest {
         stack.addLast(13);
         assertEquals(13, stack.getLast());
         assertEquals(5, stack.size());
+    }
+
+
+    @Test
+    public void test_angle_comparator() {
+        MaxEltStack<Point2D> point2DStack = new MaxEltStack();
+        point2DStack.addLast(new Point2D(-2, -1));
+        point2DStack.addLast(new Point2D(2, 2));
+        point2DStack.addLast(new Point2D(-2, 2));
+        assertEquals(Arrays.asList(
+                new Point2D(2, 2),
+                new Point2D(-2, 2),
+                new Point2D(-2, -1)
+        ), point2DStack.sort(new VectorAngleComparatorAsc()));
+
+        assertEquals(Arrays.asList(
+                new Point2D(-2, -1),
+                new Point2D(-2, 2),
+                new Point2D(2, 2)
+        ), point2DStack.sort(new VectorAngleComparatorDesc()));
+
     }
 }
