@@ -3,7 +3,6 @@ package telran;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.Objects;
 
 /**
  * An implementation of the List data structure, made via array under the hood.
@@ -15,23 +14,29 @@ import java.util.Objects;
  */
 public class OurArrayList<T> implements OurList<T> {
 
+    static final int INITIAL_CAPACITY = 16;
     Object[] source;
     int size;
-    final int DEFAULT_CAPACITY = 16;
 
     public OurArrayList() {
-        source = new Object[DEFAULT_CAPACITY];
-        size = 0;
+        this.source = new Object[INITIAL_CAPACITY];
+        this.size = 0;
     }
 
     @Override
     public void add(T elt) {
         if (size == source.length) {
-            Object[] newSource = new Object[size + DEFAULT_CAPACITY];
-            System.arraycopy(source, 0, newSource, 0, source.length);
-            source = newSource;
+            increaseSource();
         }
-        source[size++] = elt;
+        source[size] = elt;
+        size++;
+    }
+
+    private void increaseSource() {
+//        Object[] newSource = new Object[source.length * 2];
+//        System.arraycopy(source, 0, newSource, 0, source.length);
+//        source = newSource;
+        source = Arrays.copyOf(source, source.length * 2);
     }
 
     @Override
@@ -41,77 +46,103 @@ public class OurArrayList<T> implements OurList<T> {
 
     @Override
     public void set(int index, T elt) {
-        if (index < 0 || index >= size) {
+        if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
-        } else source[index] = elt;
+        source[index] = elt;
     }
 
     @Override
     public T get(int index) {
-        if (index < 0 || index >= size) {
+        if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
-        }
         return (T) source[index];
     }
 
     @Override
     public boolean contains(T elt) {
+        int index = getIndexOf(elt);
+        return index != -1;
+    }
+
+    /**
+     * searches for the index of the elt in this list
+     *
+     * @param elt to find
+     * @return actual index or -1 if not found
+     */
+    private int getIndexOf(T elt) {
         for (int i = 0; i < size; i++) {
-            if (source[i].equals(elt))
-                return true;
+            if (elt.equals(source[i]))
+                return i;
         }
-        return false;
+        return -1;
     }
 
     @Override
     public T remove(int index) {
-        if (index < 0 || index >= size) {
+        if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
-        }
-        Object result = (T) source[index];
+
+        T elt = (T) source[index];
+
         System.arraycopy(source, index + 1, source, index, size - index - 1);
         size--;
-        return (T) result;
+        return elt;
     }
 
     @Override
     public boolean remove(T elt) {
-        for (int i = 0; i < size; i++) {
-            if (source[i].equals(elt)) {
-                System.arraycopy(source, i + 1, source, i, size - (i - 1));
-                size--;
-                return true;
-            }
-        }
-        return false;
+        int index = getIndexOf(elt);
+
+        if (index == -1)
+            return false;
+
+        remove(index);
+        return true;
     }
 
     @Override
     public void sort() {
-        Arrays.sort((T[]) source, 0, size);
+        Arrays.sort(source, 0, size);
     }
 
     @Override
     public void sort(Comparator<T> comparator) {
-
         Arrays.sort((T[]) source, 0, size, comparator);
     }
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            int currentNumber;
+//        return new Iterator<>() {
+//
+//            int currentIndex = 0;
+//
+//            @Override
+//            public boolean hasNext() {
+//                return currentIndex < size;
+//            }
+//
+//            @Override
+//            public T next() {
+//                return (T) source[currentIndex++];
+//            }
+//        };
+        return new DefaultIterator();
+    }
 
-            @Override
-            public boolean hasNext() {
-                return currentNumber < size;
-            }
+    class DefaultIterator implements Iterator<T> {
 
-            @Override
-            public T next() {
-                return (T) source[currentNumber++];
-            }
-        };
+        int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        @Override
+        public T next() {
+            return (T) source[currentIndex++];
+        }
     }
 
 }

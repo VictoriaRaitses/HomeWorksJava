@@ -1,6 +1,8 @@
 package telran;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Iterator;
 
 public class OurLinkedList<T> implements OurList<T> {
 
@@ -18,6 +20,7 @@ public class OurLinkedList<T> implements OurList<T> {
             last.next = newNode;
             last = newNode;
         }
+
         size++;
     }
 
@@ -28,122 +31,143 @@ public class OurLinkedList<T> implements OurList<T> {
 
     @Override
     public void set(int index, T elt) {
+        Node<T> node = getNodeByIndex(index);
+        node.elt = elt;
+    }
+
+    private Node<T> getNodeByIndex(int index) {
         if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
-        Node node = getNode(index);
-        node.elt = elt;
+
+        Node<T> current = first;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current;
     }
 
     @Override
     public T get(int index) {
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException();
-        return (T) getNode(index).elt;
-    }
-
-    public Node getNode(int index) {
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException();
-        Node node = first;
-        for (int i = 0; i < index; i++) {
-            node = node.next;
-        }
-        return node;
+        Node<T> node = getNodeByIndex(index);
+        return node.elt;
     }
 
     @Override
     public boolean contains(T elt) {
-        Node node = first;
-        for (int i = 0; i < size - 1; i++) {
-            node = node.next;
-            if (node.elt.equals(elt))
-                return true;
+        return findNode(elt) != null;
+    }
+
+    /**
+     * The method returns the node corresponding to the elt.
+     *
+     * @param elt to find the node
+     * @return node if found or null otherwise
+     */
+    private Node<T> findNode(T elt) {
+        Node<T> current = first;
+        while (current != null) {
+            if (elt.equals(current.elt))
+                return current;
+            current = current.next;
         }
-        return false;
+        return null;
     }
 
     @Override
     public T remove(int index) {
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException();
-
-        Node removedNode = getNode(index);
-
-        if (index == 0) {
-            first = removedNode.next;
-            first.prev = null;
-        } else if (index == size - 1) {
-            last = removedNode.prev;
-            last.next = null;
-        } else {
-            removedNode.prev.next = removedNode.next;
-            removedNode.next.prev = removedNode.prev;
-        }
-        size--;
-        return (T) removedNode.elt;
+        Node<T> nodeToRemove = getNodeByIndex(index);
+        T res = nodeToRemove.elt;
+        removeByNode(nodeToRemove);
+        return res;
     }
 
     @Override
     public boolean remove(T elt) {
-        if (size == 0)
-            throw new IndexOutOfBoundsException();
+        Node<T> nodeToRemove = findNode(elt);
+        if (nodeToRemove == null)
+            return false;
+        removeByNode(nodeToRemove);
+        return true;
+    }
 
-        for (int i = 0; i < size; i++) {
-            Node removedNode = getNode(i);
-            if (elt.equals(removedNode.elt)) {
-                remove(i);
+    private void removeByNode(Node<T> toRemove) {
+        Node<T> left = toRemove.prev;
+        Node<T> right = toRemove.next;
 
-                if (removedNode.prev == null) {
-                    first = removedNode.next;
-                    first.prev = null;
-                } else if (removedNode.next == null) {
-                    last = removedNode.prev;
-                    last.next = null;
-                } else {
-                    removedNode.prev.next = removedNode.next;
-                    removedNode.next.next = removedNode.prev;
-                }
-                size--;
-                return true;
-            }
+        toRemove.prev = null;
+        toRemove.next = null;
+        toRemove.elt = null;
+
+        if (size == 1) {
+            first = last = null;
+        } else if (first == toRemove) {
+            right.prev = null;
+            first = right;
+        } else if (last == toRemove) {
+            left.next = null;
+            last = left;
+        } else {
+            right.prev = left;
+            left.next = right;
         }
-        return false;
+
+        size--;
     }
 
     @Override
     public void sort() {
+        T[] array = toArray();
+        Arrays.sort(array);
+        updateThis(array);
+    }
 
+    private void updateThis(T[] array) {
+        Node<T> current = first;
+        for (int i = 0; i < size; i++) {
+            current.elt = array[i];
+            current = current.next;
+        }
+    }
+
+    private T[] toArray() {
+        Object[] res = new Object[size];
+
+        Iterator<T> it = iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            res[i++] = it.next();
+        }
+        return (T[]) res;
     }
 
     @Override
     public void sort(Comparator<T> comparator) {
-
+        T[] array = toArray();
+        Arrays.sort(array, comparator);
+        updateThis(array);
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            private Node<T> currentNode = null;
+
+            Node<T> current = first;
 
             @Override
             public boolean hasNext() {
-                return currentNode != last;
+                return current != null;
             }
 
             @Override
             public T next() {
-                if (currentNode == null) {
-                    currentNode = first;
-                    return currentNode.elt;
-                }
-                currentNode = currentNode.next;
-                return currentNode.elt;
+                T res = current.elt;
+                current = current.next;
+                return res;
             }
-
         };
     }
 
-    static class Node<T> implements Comparable<T> {
+    private static class Node<T> {
 
         public Node(T elt, Node<T> next, Node<T> prev) {
             this.elt = elt;
@@ -154,10 +178,5 @@ public class OurLinkedList<T> implements OurList<T> {
         T elt;
         Node<T> next;
         Node<T> prev;
-
-        @Override
-        public int compareTo(T o) {
-            return this.compareTo(o);
-        }
     }
 }
