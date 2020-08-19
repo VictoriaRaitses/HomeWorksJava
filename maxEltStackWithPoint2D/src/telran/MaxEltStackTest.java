@@ -286,7 +286,7 @@ class MaxEltStackTest {
 
 
     @Test
-    public void test_angle_comparator() {
+    public void test_angle_comparator_asc() {
         MaxEltStack<Point2D> point2DStack = new MaxEltStack();
         point2DStack.addLast(new Point2D(-2, -1));
         point2DStack.addLast(new Point2D(2, 2));
@@ -297,6 +297,15 @@ class MaxEltStackTest {
                 new Point2D(-2, -1)
         ), point2DStack.sort(new VectorAngleComparatorAsc()));
 
+    }
+
+
+    @Test
+    public void test_angle_comparator_desc() {
+        MaxEltStack<Point2D> point2DStack = new MaxEltStack();
+        point2DStack.addLast(new Point2D(-2, -1));
+        point2DStack.addLast(new Point2D(2, 2));
+        point2DStack.addLast(new Point2D(-2, 2));
         assertEquals(Arrays.asList(
                 new Point2D(-2, -1),
                 new Point2D(-2, 2),
