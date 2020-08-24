@@ -17,9 +17,4 @@ public class Score {
     public int getResult() {
         return result;
     }
-
-    @Override
-    public String toString() {
-        return "name = '" + name + "', result = " + result + " ms";
-    }
 }
