@@ -42,4 +42,13 @@ class Point2DTest {
     public void testCompareTo_bigger() {
         assertEquals(1, point2D.compareTo(new Point2D(0, 0.1)));
     }
+
+    @Test
+    public void testAngleSize_() {
+        assertEquals(45, new Point2D(2, 2).angleSize());
+        assertEquals(135, new Point2D(-2, 2).angleSize());
+
+    }
+
+
 }
