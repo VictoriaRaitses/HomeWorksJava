@@ -2,22 +2,18 @@ package telran;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         //Create 3 same consumers and one supplier, make consumers daemon.
-        System.out.println("Starting main id:" + Thread.currentThread().getId());
-        OneElementBlockingQueue oneElementBlockingQueue = new OneElementBlockingQueue();
-        StringSupplier ss1 = new StringSupplier(oneElementBlockingQueue);
-        StringConsumer sc1 = new StringConsumer(oneElementBlockingQueue);
-        StringConsumer sc2 = new StringConsumer(oneElementBlockingQueue);
-        StringConsumer sc3 = new StringConsumer(oneElementBlockingQueue);
+        OneElementBlockingQueue queue = new OneElementBlockingQueue();
+        Thread supplier = new StringSupplier(queue);
 
-        sc1.setDaemon(true);
-        sc2.setDaemon(true);
-        sc3.setDaemon(true);
+        Thread[] consumers = new StringConsumer[5];
 
-        sc1.start();
-        sc2.start();
-        sc3.start();
-        ss1.start();
+        for (int i = 0; i < consumers.length; i++) {
+            consumers[i] = new StringConsumer(queue);
+            consumers[i].setDaemon(true);
+            consumers[i].start();
+        }
+        supplier.start();
     }
 }

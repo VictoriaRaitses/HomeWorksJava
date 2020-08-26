@@ -13,29 +13,13 @@ public class StringSupplier extends Thread {
 
     @Override
     public void run() {
-        //Must accept lines from System.in and put them into the queue. See Echo Messenger project
-        System.out.println("Starting Supplier id:" + Thread.currentThread().getId());
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        String line;
-        while (true) {
-            try {
-                System.out.println("Supplier id:" + Thread.currentThread().getId() + " please write a line");
-                if (!((line = br.readLine()) != null && !line.equals("exit"))) break;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            String line;
+            while ((line = br.readLine()) != null && !line.equals("exit")) {
                 queue.addFirst(line);
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-            //lp.setLine("Print: " + line);
-            //lp.interrupt();
-        }
-        try {
-            queue.addFirst(line);
-            System.out.println("bye-bye Supplier thread id:" + Thread.currentThread().getId());
-            br.close();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }
