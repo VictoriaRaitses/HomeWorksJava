@@ -1,1 +1,1 @@
-operations=telran.consumer.operation.LowerCaseOperation,telran.consumer.operation.UpperCaseOperation,telran.consumer.operation.ReverseOperation
+operations=,telran.consumer.operation.UpperCaseOperation,telran.consumer.operation.ReverseOperationtelran.consumer.operation.LowerCaseOperation
