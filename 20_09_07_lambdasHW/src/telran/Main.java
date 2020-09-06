@@ -9,6 +9,7 @@ public class Main {
         Predicate<UniqueNumbers> p = uniqueNumbers -> uniqueNumbers.test(1, 6, 4);
         System.out.println(p.test(new UniqueNumbers()));
 
+
         //второе задание
         Function<Integer, Integer> x = num -> num * 2;
         Function<Integer, Integer> f = x;
