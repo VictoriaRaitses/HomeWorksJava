@@ -1,47 +1,98 @@
 package telran;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Function;
 
 public class Main {
+
     public static void main(String[] args) {
-        MyFunction function = new MyFunction();
-        double res = function.apply(2.0);
+
+        SqrtMaker sqrtMaker = new SqrtMaker();
+        System.out.println(sqrtMaker.apply(10d));
+
+        int a = 10, b = 15, c = 20;
+        Function<Double, Double> f = (x) -> a * x * x + b * x + c;
+        System.out.println(f.apply(3d));
+
+        Function<List<Integer>, List<Integer>> uniqListMaker = (List<Integer> list) -> new ArrayList<>(new HashSet<>(list));
+        System.out.println(uniqListMaker.apply(Arrays.asList(2, 5, 2, 3, 10, 5)));
+
+        List<Integer> myList = new ArrayList<Integer>() {
+            {
+                add(6);
+            }
+
+            @Override
+            public String toString() {
+                return "kuku";
+            }
+        };
+
+        List<Integer> myListExplicit = new MyList();
+
+        myList.add(1);
+        myList.add(4);
+        myList.add(2);
+        myList.add(8);
+        myList.add(1);
+
+        myListExplicit.add(1);
+        myListExplicit.add(4);
+        myListExplicit.add(2);
+        myListExplicit.add(8);
+        myListExplicit.add(1);
+
+        System.out.println(myList);
+        System.out.println(myListExplicit);
+
+        printResult(num -> num * num, 10);
+        printResult(num -> num + 5, 10);
+
+        Function<Integer, Integer> sqr = num -> {
+            return num * num;
+        };
+        printResult(sqr, 3);
+
+        myPrintResult(num -> num * num, 10);
+        myPrintResult(num -> num + 5, 10);
+
+        myPrintResult(sqr::apply, 3);
+    }
+
+    static void printResult(Function<Integer, Integer> function, int num) {
+        int res = function.apply(num);
         System.out.println(res);
+    }
 
-        Function<List<String>, Set<String>> unrepeatable = new Function<List<String>, Set<String>>() {
-            @Override
-            public Set<String> apply(List<String> strings) {
-                return new HashSet<>(strings);
-            }
-        };
+    static void myPrintResult(MyFunction function, int num) {
+        int res = function.compute(num);
+        System.out.println(res);
+    }
+}
 
-        List<String> list = Arrays.asList("hello", "hello", "by", "by");
-        System.out.println(unrepeatable.apply(list));
+interface MyFunction {
+    int compute(int num);
+}
 
- /*       Function<List<String>, Set<String>> unrepeatable1 = strings -> new HashSet<String>(strings);
-        Function<List<String>, Set<String>> unrepeatable2 = HashSet::new;
-        System.out.println(unrepeatable1.apply(list));
-        System.out.println(unrepeatable2.apply(list));*/
+class SqrtMaker implements Function<Double, Double> {
 
-        double a = 1;
-        double b = 2;
-        double c = 3;
+    @Override
+    public Double apply(Double num) {
+        return Math.sqrt(num);
+    }
+}
 
-        Function<Double, Double> closureFunction = new Function<Double, Double>() {
-            @Override
-            public Double apply(Double x) {
-                return Math.pow(a * x, 2) + (b * x) + c;
-            }
-        };
+class MyList extends ArrayList<Integer> {
 
-          /*Function<Double, Double> closureFunction1 = x -> Math.pow(a * x, 2) + (b * x) + c;
-        System.out.println(closureFunction1.apply(4.2));*/
+    {
+        add(4);
+    }
 
-        System.out.println(closureFunction.apply(4.2));
-
+    @Override
+    public String toString() {
+        return "ruku";
     }
 }
