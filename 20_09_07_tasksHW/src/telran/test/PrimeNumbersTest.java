@@ -19,8 +19,13 @@ class PrimeNumbersTest {
     }
 
     @Test
-    public void testIsPrime_0andNegativeNumber_emptyList() {
+    public void testIsPrime_negativeNumber_false() {
         assertFalse(primeNumbers.isPrime(-7));
+    }
+
+    @Test
+    public void testIsPrime_7_true() {
+        assertTrue(primeNumbers.isPrime(7));
     }
 
     @Test
@@ -29,12 +34,12 @@ class PrimeNumbersTest {
     }
 
     @Test
-    public void testIsPrime_127_false() {
+    public void testIsPrime_127_true() {
         assertTrue(primeNumbers.isPrime(127));
     }
 
     @Test
-    public void testIsPrime_2393_emptyList1() {
+    public void testIsPrime_2393_true() {
         assertTrue(primeNumbers.isPrime(2393));
     }
 }
