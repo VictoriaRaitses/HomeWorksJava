@@ -8,7 +8,7 @@ public class Factorial {
         if (f <= 1) {
             return 1;
         } else {
-            return IntStream.rangeClosed(2, f).reduce((x, y) -> x * y).getAsInt();
+            return IntStream.rangeClosed(2, f).reduce(1, (x, y) -> x * y);
         }
     }
 }
