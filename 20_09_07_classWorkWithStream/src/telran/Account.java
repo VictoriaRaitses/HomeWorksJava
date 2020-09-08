@@ -1,9 +1,9 @@
 package telran;
 
 public class Account {
-    String id;
-    Long sum;
-    Boolean isLocked;
+    private String id;
+    private Long sum;
+    private Boolean isLocked;
 
     public Account(String id, Long sum, Boolean isLocked) {
         this.id = id;
@@ -21,5 +21,18 @@ public class Account {
 
     public Boolean getLocked() {
         return isLocked;
+    }
+
+    public void setLocked(Boolean locked) {
+        isLocked = locked;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id='" + id + '\'' +
+                ", sum=" + sum +
+                ", isLocked=" + isLocked +
+                '}';
     }
 }
