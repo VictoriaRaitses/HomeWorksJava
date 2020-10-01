@@ -3,19 +3,17 @@ package telran;
 public class Casino {
 
     public int stepsToWin(int N, int M) {
-        if (N == 1)
-            return 0;
-
         int count = 0;
-        for (int i = 0; i < M; i++) {
-            if (N % 2 != 0 && N != 1) {
+        while (N > 1) {
+            if (N % 2 == 0 && M > 0) {
+                N /= 2;
+                M--;
+            } else {
                 N--;
-                count++;
             }
-            N = N / 2;
             count++;
         }
-
-        return N + count - 1;
+        return count;
     }
 }
+

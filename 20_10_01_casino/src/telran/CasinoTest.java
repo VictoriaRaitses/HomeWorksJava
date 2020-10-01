@@ -34,8 +34,8 @@ class CasinoTest {
     }
 
     @Test
-    public void testStepsToWin_51Winning_11() {
-        assertEquals(11, casino.stepsToWin(51, 9));
+    public void testStepsToWin_51Winning_8() {
+        assertEquals(8, casino.stepsToWin(51, 9));
     }
 
     @Test
