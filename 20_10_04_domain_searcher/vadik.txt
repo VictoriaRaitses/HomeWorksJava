@@ -1,7 +1,0 @@
-http://vadik.de  exist
-http://vadik.com  exist
-http://vadik.ru  exist
-http://vadik.ua does not exist
-http://vadik.by does not exist
-http://vadik.org  exist
-http://vadik.kz does not exist
