@@ -23,13 +23,10 @@ public class Main {
 
         String hostName;
         while ((hostName = consoleReader.readLine()) != null && !hostName.equals("exit")) {
-
             List<String> hostList = new ArrayList<>();
             for (String firstLevelDomainName : zones) {
-                String httpCheck = checkURL("http", hostName, firstLevelDomainName);
-                String httpsCheck = checkURL("https", hostName, firstLevelDomainName);
-                hostList.add(httpCheck);
-                hostList.add(httpsCheck);
+                hostList.add(checkURL("http", hostName, firstLevelDomainName));
+                hostList.add(checkURL("https", hostName, firstLevelDomainName));
             }
             fo.writeListToFile(hostList, hostName + ".txt");
             System.out.println("scan is done for: " + hostName);
