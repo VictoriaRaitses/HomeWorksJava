@@ -1,0 +1,14 @@
+http://vika.de  exist
+https://vika.de  exist
+http://vika.com  exist
+https://vika.com  exist
+http://vika.ru  exist
+https://vika.ru  exist
+http://vika.ua does not exist
+https://vika.ua does not exist
+http://vika.by  exist
+https://vika.by  exist
+http://vika.org  exist
+https://vika.org  exist
+http://vika.kz does not exist
+https://vika.kz does not exist
