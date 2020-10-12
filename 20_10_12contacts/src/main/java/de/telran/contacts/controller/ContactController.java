@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ContactController {
 
-    private final ContactService contactService;
+    private ContactService contactService;
 
     @Autowired
     public ContactController(ContactService contactService) {

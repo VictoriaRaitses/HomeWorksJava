@@ -1,7 +1,23 @@
 package de.telran.contacts.service;
 
 import de.telran.contacts.model.Contact;
+import de.telran.contacts.repository.IContactRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public interface ContactService {
-    void add(Contact contact);
+@Service
+public class ContactService {
+
+    final private IContactRepo contactRepo;
+
+    @Autowired
+    public ContactService(IContactRepo contactRepo) {
+
+        this.contactRepo = contactRepo;
+    }
+
+    public void add(Contact contact) {
+        contactRepo.add(contact);
+    }
+
 }
